@@ -36,6 +36,8 @@ namespace DilaAPI
             services.AddControllers();
             // services.AddEntityFrameworkNpgsql()
 
+
+            services.AddSwaggerGen();
             services.AddEntityFrameworkNpgsql().AddDbContext<DilaDbContext>(opt => 
             opt.UseNpgsql(
                 Configuration.GetConnectionString("DefaultConnection"), 
@@ -64,6 +66,15 @@ namespace DilaAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
             });
 
             // using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
