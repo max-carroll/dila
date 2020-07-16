@@ -42,7 +42,11 @@ namespace DilaAPI
             opt.UseNpgsql(
                 Configuration.GetConnectionString("DefaultConnection"), 
                 b => b.MigrationsAssembly("DilaAPI")
-            ));
+            ).UseLowerCaseNamingConvention()
+
+            )
+                
+                ;
 
             services.AddScoped<IDilaContext, DilaDbContext>();
             services.AddScoped<IWordRepository, WordRepository>();

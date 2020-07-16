@@ -8,23 +8,23 @@ namespace DilaAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Word",
+                name: "word",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true)
+                    name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Word", x => x.Id);
+                    table.PrimaryKey("pk_word", x => x.id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Word");
+                name: "word");
         }
     }
 }
