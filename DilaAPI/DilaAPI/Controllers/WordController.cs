@@ -29,7 +29,14 @@ namespace DilaAPI.Controllers
         {
             var words = await wordService.GetAllAsync();
             return words;
-                
+        }
+
+
+        [HttpPost]
+        public async Task<WordDto> InsertAsync(WordDto word)
+        {
+            var wowordrds = await wordService.InsertAsync(word);
+            return wowordrds;
         }
     }
 }

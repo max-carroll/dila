@@ -25,10 +25,21 @@ namespace DilaRepository
             var result = await dilaContext.Word.Select(ToWordDto).ToListAsync();
             return result;       
         }
+
+        public async Task<WordDto> InsertAsync(Word word)
+        {
+            dilaContext.Word.Add(word);
+
+            await dilaContext.SaveChangesAsync();
+
+            var dto = ToWordDto.Compile()(word);
+            return dto;
+        }
     }
 
     public interface IWordRepository
     {
+        Task<WordDto> InsertAsync(Word word);
         Task<IEnumerable<WordDto>> GetAllAsync();
     }
 }

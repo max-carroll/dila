@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DilaRepository
 {
@@ -10,6 +11,7 @@ namespace DilaRepository
     public interface IDilaContext
     {
         DbSet<Word> Word { get; set; }
+        Task<int> SaveChangesAsync();
     }
     public class DilaDbContext : DbContext, IDilaContext
     {
@@ -29,5 +31,13 @@ namespace DilaRepository
         {
 
         }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            var result = await base.SaveChangesAsync();
+            return result;
+        }
+
+
     }
 }
