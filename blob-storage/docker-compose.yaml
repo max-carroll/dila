@@ -1,9 +1,9 @@
+version: '3.7'
 
 # Its also possible to deploy a distributed cluster of minio servers
 # https://raw.githubusercontent.com/minio/minio/master/docs/orchestration/docker-compose/docker-compose.yaml
 # The minimum number of endpoints is 4, so for that reason I'm using the non distributed approach for now
 
-version: '3.7'
 
 services:
   minio1:
@@ -15,7 +15,7 @@ services:
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
-    command: server /data-1
+    command: server /data1-1
     restart: always # ensures this service always runs when the systems up
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
