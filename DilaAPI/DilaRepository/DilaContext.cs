@@ -22,6 +22,12 @@ namespace DilaRepository
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
+
+            modelBuilder.Entity<Word>().Property(e => e.Language).HasConversion<string>();
+            modelBuilder.Entity<Word>().Property(e => e.Type).HasConversion<string>();
+
+            // in the package manager console: dotnet ef migrations add
+
             // If ever we want to get rid of the quotations from the database we can use this
             // https://stackoverflow.com/a/51124087/2423207
             // https://stackoverflow.com/questions/39095495/rename-all-columns-from-all-tables-with-specific-column-name-in-postgresql
