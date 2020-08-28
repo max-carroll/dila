@@ -26,7 +26,8 @@ namespace DilaRepository
             modelBuilder.Entity<Word>().Property(e => e.Language).HasConversion<string>();
             modelBuilder.Entity<Word>().Property(e => e.Type).HasConversion<string>();
 
-            // in the package manager console: dotnet ef migrations add
+            // Package manage console: Add-migration WordCategory
+            // cmd: dotnet ef migrations add
 
             // If ever we want to get rid of the quotations from the database we can use this
             // https://stackoverflow.com/a/51124087/2423207

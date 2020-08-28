@@ -28,7 +28,7 @@ namespace DilaShared.Dto
         public WordType Type { get; set; }
         public string Emoji { get; set; }
         public Language Language { get; set; }
-        public IEnumerable<string> Categories { get; set; }
+        public IEnumerable<CategoryDto> Categories { get; set; }
     }
 }
 
