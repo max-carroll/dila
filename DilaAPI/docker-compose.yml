@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dilaapi:
+    image: ${DOCKER_REGISTRY-}dilaapi
+    build:
+      context: .
+      dockerfile: DilaAPI/Dockerfile
