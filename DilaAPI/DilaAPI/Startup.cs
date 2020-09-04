@@ -40,7 +40,7 @@ namespace DilaAPI
             services.AddSwaggerGen();
             services.AddEntityFrameworkNpgsql().AddDbContext<DilaDbContext>(opt => 
             opt.UseNpgsql(
-                Configuration.GetConnectionString("DefaultConnection"), 
+                connectionString, 
                 b => b.MigrationsAssembly("DilaAPI")
             ).UseLowerCaseNamingConvention()
 

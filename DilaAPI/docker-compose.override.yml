@@ -1,12 +1,60 @@
 version: '3.4'
 
+networks:
+  dila-network:
+    driver: bridge
+
 services:
   dilaapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+    depends_on:
+      - "pgdila"
     ports:
       - "80"
       - "443"
+    networks:
+      - dila-network
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  pgdila:
+    container_name: pgdila
+    image: postgres:latest
+    command: postgres -c 'max_connections=200'
+#    ports:
+#      - "5432:5432"
+    expose:
+      - "5432"
+    restart: always
+    environment:
+      # check whether user name and password cant be changed after the databse has seeded
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USERNAME: "postgres"
+      POSTGRES_DB: "dila"
+    networks:
+      - dila-network
+    stop_grace_period: 1m30s
+    stop_signal: SIGINT
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+  pgadmin_dila:
+    container_name: pgadmin_dila
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - pgdila
+    ports:
+      - "5555:80"
+    networks:
+      - dila-network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: "avatoot2015"
+    restart: unless-stopped
+
+
+
+volumes:
+  db_volume:
