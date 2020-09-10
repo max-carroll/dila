@@ -57,7 +57,7 @@ export function FlashCard() {
 
   const handleSaveWord = async () => {
 
-    await axios.post("api/word")
+    await axios.post("http://localhost:32771/api/word", word )
 
   }
 

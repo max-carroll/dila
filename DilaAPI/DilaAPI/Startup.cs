@@ -33,19 +33,27 @@ namespace DilaAPI
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection"); //Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-            services.AddControllers();
+
+
+            services.AddControllers().AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                });
             // services.AddEntityFrameworkNpgsql()
 
 
+
+
             services.AddSwaggerGen();
-            services.AddEntityFrameworkNpgsql().AddDbContext<DilaDbContext>(opt => 
+            services.AddEntityFrameworkNpgsql().AddDbContext<DilaDbContext>(opt =>
             opt.UseNpgsql(
-                connectionString, 
+                connectionString,
                 b => b.MigrationsAssembly("DilaAPI")
             ).UseLowerCaseNamingConvention()
 
             )
-                
+
                 ;
 
             services.AddScoped<IDilaContext, DilaDbContext>();
@@ -61,9 +69,11 @@ namespace DilaAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
 
             app.UseAuthorization();
 
