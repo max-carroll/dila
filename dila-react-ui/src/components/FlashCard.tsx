@@ -28,6 +28,11 @@ class Word {
 }
 
 class Category {
+
+  constructor(name : string) {
+    this.name = name
+  }
+
   id: number = 0
   name: string = ""
 }
@@ -46,7 +51,13 @@ export function FlashCard() {
 
   const setCategories = (event: any, values: (string | Category)[]) => {
 
-    const catValues = values as Category[]
+    console.log(values)
+
+    
+
+    //const catValues = values as Category[]
+
+    const catValues = values.map(v=> typeof(v) === "string" ? new Category(v) : v )
 
     setWord(old => ({ ...old!, categories: catValues }))
   }
@@ -55,9 +66,11 @@ export function FlashCard() {
     setWord(old => ({ ...old!, emoji: emojiObject.emoji }))
   };
 
+
+
   const handleSaveWord = async () => {
 
-    await axios.post("http://localhost:32771/api/word", word )
+    await axios.post("http://localhost/api/word", word )
 
   }
 
