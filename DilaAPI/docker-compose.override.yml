@@ -12,8 +12,8 @@ services:
     depends_on:
       - "pgdila"
     ports:
-      - "80"
-      - "443"
+      - "80:80"
+      - "443:443"
     networks:
       - dila-network
     volumes:
