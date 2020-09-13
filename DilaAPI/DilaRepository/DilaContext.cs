@@ -11,12 +11,17 @@ namespace DilaRepository
     public interface IDilaContext
     {
         DbSet<Word> Word { get; set; }
+        DbSet<Category> Caterogy { get; set; }
+        DbSet<WordCategory> WordCategory { get; set; }
         Task<int> SaveChangesAsync();
     }
     public class DilaDbContext : DbContext, IDilaContext
     {
 
         public DbSet<Word> Word { get; set; }
+        public DbSet<Category> Caterogy { get; set; }
+        public DbSet<WordCategory> WordCategory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +31,8 @@ namespace DilaRepository
             modelBuilder.Entity<Word>().Property(e => e.Language).HasConversion<string>();
             modelBuilder.Entity<Word>().Property(e => e.Type).HasConversion<string>();
 
+            //https://dev.to/_patrickgod/many-to-many-relationship-with-entity-framework-core-4059
+            modelBuilder.Entity<WordCategory>().HasKey(wc => new { wc.WordId, wc.CategoryId });
             // Package manage console: Add-migration WordCategory
             // cmd: dotnet ef migrations add
 
@@ -39,7 +46,7 @@ namespace DilaRepository
 
         public DilaDbContext(DbContextOptions<DilaDbContext> options) : base(options)
         {
-
+           
         }
 
         public async Task<int> SaveChangesAsync()

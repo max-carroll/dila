@@ -26,6 +26,13 @@ namespace DilaRepository
             return result;       
         }
 
+        public async Task InsertCategoriesAsync(IEnumerable<Category> categories)
+        {
+            dilaContext.Caterogy.AddRange(categories);
+
+            await dilaContext.SaveChangesAsync();
+        }
+
         public async Task<WordDto> InsertAsync(Word word)
         {
             dilaContext.Word.Add(word);
@@ -40,6 +47,8 @@ namespace DilaRepository
     public interface IWordRepository
     {
         Task<WordDto> InsertAsync(Word word);
+
+        Task InsertCategoriesAsync(IEnumerable<Category> categories);
         Task<IEnumerable<WordDto>> GetAllAsync();
     }
 }

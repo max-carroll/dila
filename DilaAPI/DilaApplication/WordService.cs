@@ -3,6 +3,7 @@ using DilaShared.Dto;
 using Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DilaApplication
@@ -21,9 +22,31 @@ namespace DilaApplication
             return await wordRespository.GetAllAsync();
         }
 
+
+
         public async Task<WordDto> InsertAsync(WordDto dto)
         {
-            var word = new Word { Name = dto.Name };
+            var existingCategories = dto.Categories.Where(c => c.Id != 0);
+
+            var newCategories = dto.Categories.Where(c => c.Id == 0).Select(c => new Category { Name = c.Name });
+
+            await wordRespository.InsertCategoriesAsync(newCategories);
+
+
+            var wordCategories = new List<WordCategory>(existingCategories.Select(c=> new WordCategory {CategoryId =  c.Id}));
+
+            wordCategories.AddRange(newCategories.Select(c => new WordCategory { CategoryId = c.Id }));
+
+            var word = new Word { 
+                Name = dto.Name,
+                Emoji = dto.Emoji,
+                Language = dto.Language,
+                Translation = dto.Translation,
+                Type = dto.Type,
+                // TODO, we want these to be unique 
+                WordCategories = wordCategories
+            
+            };
 
             var result = await wordRespository.InsertAsync(word);
             return result;
