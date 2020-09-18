@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace DilaApplication
 {
+
     public class WordService : IWordService
     {
         private readonly IWordRepository wordRespository;
@@ -21,8 +22,6 @@ namespace DilaApplication
         {
             return await wordRespository.GetAllAsync();
         }
-
-
 
         public async Task<WordDto> InsertAsync(WordDto dto)
         {

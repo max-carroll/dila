@@ -59,6 +59,8 @@ namespace DilaAPI
             services.AddScoped<IDilaContext, DilaDbContext>();
             services.AddScoped<IWordRepository, WordRepository>();
             services.AddScoped<IWordService, WordService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

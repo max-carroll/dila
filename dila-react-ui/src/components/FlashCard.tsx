@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, Chip, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Picker from 'emoji-picker-react'
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 enum WordType {
   Noun = "Noun",
@@ -41,8 +41,18 @@ class Category {
 export function FlashCard() {
 
   const [word, setWord] = React.useState<Word>(new Word())
+  const [cats, setCats] = React.useState<Category[]>( new Array<Category>())
 
-  const cats : Category[] = [ {id: 1, name: "kitchen"}, {id: 2, name: "money"}]
+  //const cats : Category[] = [ {id: 1, name: "kitchen"}, {id: 2, name: "money"}]
+
+  React.useEffect(()=> {
+    async function fetch(){
+      var result = await axios.get<any, AxiosResponse<Category[]>>("http://localhost/api/category")
+      setCats(result?.data)
+    }
+    fetch()
+  },[])
+
 
   const handleCurriedChange = (name: string) => (event: any) => {
     const { value } = event.target
@@ -65,6 +75,7 @@ export function FlashCard() {
   const onEmojiClick = (event : any, emojiObject : any) => {
     setWord(old => ({ ...old!, emoji: emojiObject.emoji }))
   };
+
 
 
 

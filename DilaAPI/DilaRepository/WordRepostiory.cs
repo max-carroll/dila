@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DilaRepository
 {
+
     public class WordRepository : IWordRepository
     {
         private readonly IDilaContext dilaContext;
@@ -23,7 +24,7 @@ namespace DilaRepository
         public async Task<IEnumerable<WordDto>> GetAllAsync()
         {
             var result = await dilaContext.Word.Select(ToWordDto).ToListAsync();
-            return result;       
+            return result;
         }
 
         public async Task InsertCategoriesAsync(IEnumerable<Category> categories)
