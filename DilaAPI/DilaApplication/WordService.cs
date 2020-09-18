@@ -28,7 +28,7 @@ namespace DilaApplication
         {
             var existingCategories = dto.Categories.Where(c => c.Id != 0);
 
-            var newCategories = dto.Categories.Where(c => c.Id == 0).Select(c => new Category { Name = c.Name });
+            var newCategories = dto.Categories.Where(c => c.Id == 0).Select(c => new Category { Name = c.Name }).ToList();
 
             await wordRespository.InsertCategoriesAsync(newCategories);
 
@@ -45,8 +45,10 @@ namespace DilaApplication
                 Type = dto.Type,
                 // TODO, we want these to be unique 
                 WordCategories = wordCategories
-            
+           
             };
+
+            foreach (var category in word.WordCategories) category.Word = word;
 
             var result = await wordRespository.InsertAsync(word);
             return result;

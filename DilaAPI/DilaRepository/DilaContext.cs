@@ -11,7 +11,7 @@ namespace DilaRepository
     public interface IDilaContext
     {
         DbSet<Word> Word { get; set; }
-        DbSet<Category> Caterogy { get; set; }
+        DbSet<Category> Category { get; set; }
         DbSet<WordCategory> WordCategory { get; set; }
         Task<int> SaveChangesAsync();
     }
@@ -19,7 +19,7 @@ namespace DilaRepository
     {
 
         public DbSet<Word> Word { get; set; }
-        public DbSet<Category> Caterogy { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<WordCategory> WordCategory { get; set; }
 
 

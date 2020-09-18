@@ -28,7 +28,7 @@ namespace DilaRepository
 
         public async Task InsertCategoriesAsync(IEnumerable<Category> categories)
         {
-            dilaContext.Caterogy.AddRange(categories);
+            dilaContext.Category.AddRange(categories);
 
             await dilaContext.SaveChangesAsync();
         }
