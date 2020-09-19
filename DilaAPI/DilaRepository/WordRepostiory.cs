@@ -19,7 +19,20 @@ namespace DilaRepository
             this.dilaContext = dilaContext;
         }
 
-        Expression<Func<Word, WordDto>> ToWordDto = w => new WordDto { Id = w.Id, Name = w.Name };
+        Expression<Func<Word, WordDto>> ToWordDto = w => 
+        new WordDto { 
+            Id = w.Id, 
+            Name = w.Name,
+            Emoji = w.Emoji,
+            Language = w.Language,
+            Translation = w.Translation,
+            Type = w.Type,
+            Categories = w.WordCategories.Select(wc => new CategoryDto
+            {
+                Id = wc.CategoryId,
+                Name = wc.Category.Name
+            })
+        };
 
         public async Task<IEnumerable<WordDto>> GetAllAsync()
         {

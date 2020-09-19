@@ -2,10 +2,16 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { FlashCard } from './components/FlashCard';
-import { Drawer, makeStyles } from '@material-ui/core';
+import { Drawer, Grid, makeStyles } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { CategoryList } from './components/CategoryList';
 
 const drawerWidth = 240;
+
+const PATH = {
+  NEW_FLASHCARD: "/new-flashcard",
+  WORD_LIST: "/word-list"
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,11 +52,18 @@ function App() {
             paper: classes.drawerPaper,
           }}
           variant="permanent" anchor="left">
-          <Link to="/new-flashcard">New FlashCard</Link>
-      </Drawer>
+          <Grid xs={12} >
+            <Link to={PATH.NEW_FLASHCARD}>New Flashcard</Link>
+          </Grid>
+          <Grid xs={12}>
+            <Link to={PATH.WORD_LIST}>Word List</Link>
+          </Grid>
+        </Drawer>
         <main className={classes.content}>
           <Switch>
-            <Route path="/new-flashcard">  <FlashCard /></Route>
+            <Route path={PATH.NEW_FLASHCARD}>  <FlashCard /></Route>
+            <Route path={PATH.WORD_LIST}>  <CategoryList /></Route>
+
 
           </Switch>
 
