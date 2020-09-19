@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { FlashCard } from './components/FlashCard';
 import { Drawer, makeStyles } from '@material-ui/core';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -38,17 +39,23 @@ function App() {
   var classes = useStyles()
   return (
     <>
-      <Drawer
-       className={classes.drawer}
-       classes={{
-        paper: classes.drawerPaper,
-      }}
-      variant="permanent" anchor="left">
-        Timmy
+      <BrowserRouter>
+        <Drawer
+          className={classes.drawer}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          variant="permanent" anchor="left">
+          <Link to="/new-flashcard">New FlashCard</Link>
       </Drawer>
-      <main className={classes.content}>
-      <FlashCard />
-      </main>
+        <main className={classes.content}>
+          <Switch>
+            <Route path="/new-flashcard">  <FlashCard /></Route>
+
+          </Switch>
+
+        </main>
+      </BrowserRouter>
     </>
   );
 }
